@@ -8,20 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Motter.Application.Handlers
+namespace Motter.Application.Handlers.MotoHandler
 {
-    public class GetMotoByIdQueryHandler : IRequestHandler<GetMotoByIdQuery, Moto>
+    public class GetMotoByIdQueryHandler : IRequestHandler<GetAllMotos, IEnumerable<Moto>>
     {
         private readonly IMotoRepository _motoRepository;
 
         public GetMotoByIdQueryHandler(IMotoRepository motoRepository)
         {
-            _motoRepository = motoRepository;
+            _motoRepository  = motoRepository;
         }
 
-        public async Task<Moto> Handle(GetMotoByIdQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Moto>> Handle(GetAllMotos request, CancellationToken cancellationToken)
         {
-            return await _motoRepository.GetByIdAsync(request.Id);
+            return await _motoRepository.GetAllAsync(request.Placa);
         }
     }
 }

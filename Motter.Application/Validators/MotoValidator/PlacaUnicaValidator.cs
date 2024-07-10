@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Motter.Application.Validators
+namespace Motter.Application.Validators.MotoValidator
 {
     public class PlacaUnicaValidator : IPlacaUnicaValidator
     {

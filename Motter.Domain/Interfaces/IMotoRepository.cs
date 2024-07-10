@@ -9,7 +9,6 @@ namespace Motter.Domain.Interfaces
 {
     public interface IMotoRepository
     {
-        Task<Moto> GetByIdAsync(Guid id);
         Task<IEnumerable<Moto>> GetAllAsync(string placa = null);
         Task AddAsync(Moto moto);
         Task UpdateAsync(Moto moto);

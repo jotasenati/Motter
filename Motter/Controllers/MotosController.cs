@@ -1,7 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Motter.Application.Commands.Motos;
+using Motter.Application.DTOs;
 using Motter.Application.Queries.Motos;
+using Motter.Domain.Entities;
 
 namespace Motter.Controllers
 {
@@ -16,10 +18,10 @@ namespace Motter.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<MotoDto>> Get(Guid id)
+        [HttpGet("{placa}")]
+        public async Task<ActionResult<MotoDto>> Get(string placa)
         {
-            var moto = await _mediator.Send(new GetMotoByIdQuery { Id = id });
+            var moto = await _mediator.Send(new GetAllMotos { Placa = placa });
             if (moto == null)
             {
                 return NotFound();
@@ -27,13 +29,29 @@ namespace Motter.Controllers
             return Ok(moto);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<MotoDto>> Create(CreateMotoCommand command)
+        [HttpPost("Insert")]
+        public async Task<ActionResult<Moto>> Create([FromBody] CreateMotoCommand command)
         {
             var moto = await _mediator.Send(command);
             return CreatedAtAction(nameof(Get), new { id = moto.Id }, moto);
         }
 
-        // ... (demais actions para PUT, DELETE, etc.)
+        [HttpDelete]
+        public async Task<ActionResult<bool>> DeleteMoto([FromQuery] string placa)
+        {
+            try
+            {
+                await _mediator.Send(new DeleteMotoCommand { placa = placa });
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception ex) // Captura a exceção de locações associadas
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

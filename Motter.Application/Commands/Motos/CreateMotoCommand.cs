@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Motter.Application.DTOs;
+using Motter.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Motter.Application.Validators
+namespace Motter.Application.Validators.MotoValidator
 {
     public class MotoValidator : AbstractValidator<CreateMotoCommand>
     {
@@ -19,9 +19,9 @@ namespace Motter.Application.Validators
 
             RuleFor(x => x.Identificador).NotEmpty();
             RuleFor(x => x.Placa)
-                .NotEmpty()
-                .Must(placa => _placaUnicaValidator.IsPlacaUnica(placa))
-                .WithMessage("Placa já cadastrada.");
+            .NotEmpty()
+            .Must(placa => _placaUnicaValidator.IsPlacaUnica(placa)) // Inverte a lógica
+            .WithMessage("Placa já cadastrada.");
         }
     }
 }

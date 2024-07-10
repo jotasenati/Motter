@@ -1,14 +1,14 @@
 ﻿using MediatR;
-using Motter.Domain.Entities;
+using Motter.Application.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Motter.Application.Queries.Motos
+namespace Motter.Application.Queries.Locacoes
 {
-    public class GetMotoByIdQuery : IRequest<Moto>
+    public class GetLocacaoByIdQuery : IRequest<LocacaoDto>
     {
         public Guid Id { get; set; }
     }
